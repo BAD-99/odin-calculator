@@ -38,8 +38,6 @@ let total = '';
 let displayValue = '';
 let lastOperation = '';
 
-function clear() { total = 0; displayValue = ''; }
-
 function numberUpdate(val) {
     displayValue += val;
 }
@@ -47,7 +45,6 @@ function numberUpdate(val) {
 function operatorUpdate(val) {
     if (val == '=' && lastOperation != '') {
         total = operate(lastOperation, total, displayValue);
-        displayValue = '';
         lastOperation = '';
     }
     else if (val == 'C') {
@@ -62,7 +59,6 @@ function operatorUpdate(val) {
     else {
         lastOperation = val;
         total = displayValue;
-        displayValue = '';
     }
     displayValue = '';
 }
