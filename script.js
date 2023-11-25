@@ -21,27 +21,50 @@ const display = document.querySelector('.display');
 
 digits.querySelectorAll('button').forEach(
     (button) => button.
-        addEventListener('click', updateDisplay(button.innerText))
+        addEventListener('click', numberUpdate(button.innerText))
 );
 
-operate.querySelectorAll('button').forEach(
+operators.querySelectorAll('button').forEach(
     (button) => {
-        if(button.innerText === '='){
+        if (button.innerText === '=') {
 
-        } else{
-            button.addEventListener('click', )
+        } else {
+            button.addEventListener('click',)
         }
     }
 )
 
 let total = '';
-let displayValue = '0';
-let resetDisplay = true;
+let displayValue = '';
+let lastOperation = '';
 
-function clear() { total = 0; displayValue = 0; }
+function clear() { total = 0; displayValue = ''; }
 
-function updateDisplay(val) {
+function numberUpdate(val) {
     displayValue += val;
+}
+
+function operatorUpdate(val) {
+    if (val == '=' && lastOperation != '') {
+        total = operate(lastOperation, total, displayValue);
+        displayValue = '';
+        lastOperation = '';
+    }
+    else if (val == 'C') {
+        total = 0;
+        lastOperation = '';
+    }
+    else if (lastOperation != '') {
+        total = operate(lastOperation, total, displayValue);
+        
+        lastOperation = val;
+    }
+    else {
+        lastOperation = val;
+        total = displayValue;
+        displayValue = '';
+    }
+    displayValue = '';
 }
 // values maybe be look like
 // {'9','+','1'}
