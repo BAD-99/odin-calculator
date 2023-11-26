@@ -21,46 +21,56 @@ const display = document.querySelector('.display');
 
 digits.querySelectorAll('button').forEach(
     (button) => button.
-        addEventListener('click', numberUpdate(button.innerText))
+        addEventListener('click', () => numberUpdate(button.innerText))
 );
 
 operators.querySelectorAll('button').forEach(
-    (button) => {
-        if (button.innerText === '=') {
-
-        } else {
-            button.addEventListener('click',)
-        }
-    }
+    (button) =>
+        button.addEventListener('click', () => operatorUpdate(button.innerText))
 )
 
-let total = '';
-let displayValue = '';
-let lastOperation = '';
+var total = '';
+var displayValue = '';
+var lastOperation = '';
 
-function numberUpdate(val) {
-    displayValue += val;
+function updateDisplay(val) {
+    display.innerText = val;
 }
 
-function operatorUpdate(val) {
-    if (val == '=' && lastOperation != '') {
-        total = operate(lastOperation, total, displayValue);
-        lastOperation = '';
+function numberUpdate(val) {
+    if (clearOnNumberUpdate) {
+        clearOnNumberUpdate = false;
+        displayValue = '';
     }
-    else if (val == 'C') {
+    displayValue += val;
+    updateDisplay(displayValue);
+}
+
+var clearOnNumberUpdate = false;
+
+function operatorUpdate(val) {
+    //clear
+    //noop
+    //equals
+    //equals noop
+    if (val == 'C') {
         total = 0;
         lastOperation = '';
+        displayValue = '';
+        updateDisplay(displayValue);
     }
     else if (lastOperation != '') {
         total = operate(lastOperation, total, displayValue);
-        
+        if (val == '=') {
+            lastOperation = '';
+            displayValue = total;
+            total = 0;
+            updateDisplay(total);
+            clearOnNumberUpdate = true;
+            return;
+        }
         lastOperation = val;
     }
-    else {
-        lastOperation = val;
-        total = displayValue;
-    }
-    displayValue = '';
 }
 // values maybe be look like
 // {'9','+','1'}
