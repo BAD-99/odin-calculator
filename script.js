@@ -45,6 +45,10 @@ function numberUpdate(val) {
 var clearOnNumberUpdate = false;
 
 function operatorUpdate(val) {
+    if(lastOperation == '/' && (displayValue == '' || displayValue == '0')){
+        updateDisplay('DIVIDE BY ZERO ERROR');
+        return;
+    }
     switch (val) {
         case 'C':
             total = 0;
