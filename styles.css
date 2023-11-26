@@ -1,0 +1,53 @@
+:root{
+    --light-green: #a8c64e;
+    --dark-green: #3c412c;
+}
+*{
+    font-family: 'Pixelify Sans';
+    font-size: 48px;
+}
+body{
+    background-color: #a8c64e;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.calculator-body{
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.digits, .operators{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.digits > button {
+    width: 20%;
+    aspect-ratio: 1/1;
+}
+
+.operators > button {
+    width: 16.666%;
+    aspect-ratio: 1/1;
+}
+button{
+    background-color: #3c412c;
+    color: #a8c64e;
+    border: 2px solid #a8c64e;
+}
+.display{
+    color: #3c412c;
+}
+button:active{
+    background-color: #a8c64e;
+    color: #3c412c;
+    border: 4px solid #3c412c;
+}
