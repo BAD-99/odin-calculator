@@ -1,17 +1,13 @@
-function add(a, b) { return a + b; }
-function subtract(a, b) { return a - b; }
-function multiply(a, b) { return a * b; }
-function divide(a, b) { return a / b; }
 function operate(o, a, b) {
     switch (o) {
         case '+':
-            return add(a, b);
+            return parseFloat(a) + parseFloat(b);
         case '-':
-            return subtract(a, b);
+            return parseFloat(a) - parseFloat(b);
         case '*':
-            return multiply(a, b);
+            return parseFloat(a) * parseFloat(b);
         case '/':
-            return divide(a, b);
+            return parseFloat(a) / parseFloat(b);
     }
 }
 
@@ -49,31 +45,36 @@ function numberUpdate(val) {
 var clearOnNumberUpdate = false;
 
 function operatorUpdate(val) {
-    //clear
-    //noop
-    //equals
-    //equals noop
-    if (val == 'C') {
-        total = 0;
-        lastOperation = '';
-        displayValue = '';
-        updateDisplay(displayValue);
-    }
-    else if (lastOperation != '') {
-        total = operate(lastOperation, total, displayValue);
-        if (val == '=') {
-            lastOperation = '';
-            displayValue = total;
+    switch (val) {
+        case 'C':
             total = 0;
-            updateDisplay(total);
-            clearOnNumberUpdate = true;
+            lastOperation = '';
+            displayValue = '';
+            updateDisplay(displayValue);
             return;
-        }
-        lastOperation = val;
+        case '=':
+            if (lastOperation != '') {
+                total = operate(lastOperation, total, displayValue);
+                displayValue = total;
+                lastOperation = '';
+                updateDisplay(displayValue);
+                clearOnNumberUpdate = true;
+            }
+            return;
+        default:
+            if(lastOperation != ''){
+                total = operate(lastOperation,total,displayValue);
+                displayValue = total;
+                lastOperation = val;
+                updateDisplay(displayValue);
+                clearOnNumberUpdate = true;
+            }
+            else{
+                total = displayValue;
+                lastOperation = val;
+                updateDisplay(displayValue);
+                clearOnNumberUpdate = true;
+            }
+            return;
     }
 }
-// values maybe be look like
-// {'9','+','1'}
-
-//when operator pressed calculate using total and displayValue
-//store value in total
